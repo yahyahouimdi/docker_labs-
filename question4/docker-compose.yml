@@ -1,31 +1,60 @@
-version: "3.8"
 services:
   instance1:
     build: ../question1
     networks: [labnet]
+    healthcheck:
+      test: ["CMD-SHELL", "httpd -t >/dev/null 2>&1 && test -s /usr/local/apache2/logs/httpd.pid"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 2s
 
   instance2:
     build: ../question1
     networks: [labnet]
+    healthcheck:
+      test: ["CMD-SHELL", "httpd -t >/dev/null 2>&1 && test -s /usr/local/apache2/logs/httpd.pid"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 2s
   
   dateservice:
     build: ../question5
     ports:
       - "5000:5000"
     networks: [labnet]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/date', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 3s
 
   lb:
-    image: nginx
+    image: nginx@sha256:abe47724e466aeab9a345d8e46a221c2fa8953c7848bb4a3bd9976a7199f8cf2
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
     ports:
       - "8080:80"
-    depends_on: [instance1, instance2]
+    depends_on:
+      instance1:
+        condition: service_healthy
+      instance2:
+        condition: service_healthy
     networks: [labnet]
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost/"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 2s
 
   benchmarker:
     build: ../benchmark
-    depends_on: [lb]
+    depends_on:
+      lb:
+        condition: service_healthy
     networks: [labnet]
     entrypoint: ["ab", "-n", "1000", "-c", "50", "http://lb/"]
 
