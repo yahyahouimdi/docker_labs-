@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil</title>
+</head>
+
+<body>
+    <h1>Chargement...</h1>
+
+    <script>
+        fetch("http://localhost:5000/date")
+            .then(res => res.text())
+            .then(date => {
+                document.body.innerHTML = `<h1>Bonjour, aujourd'hui c'est le ${date}</h1>`;
+            })
+            .catch(err => {
+                document.body.innerHTML = `<h1>Erreur: impossible de contacter le service.</h1>`;
+                console.error(err);
+            });
+    </script>
+</body>
+
+</html>

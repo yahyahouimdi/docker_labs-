@@ -1,0 +1,1 @@
+After refreshing each web page, I noticed that each container shows its own independent content. This happens because each container has its own writable file system, so the changes are not shared between them.

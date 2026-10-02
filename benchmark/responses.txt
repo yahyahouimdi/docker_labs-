@@ -1,0 +1,1 @@
+The 3-second setTimeout() only delays the display in the browser after the page has already been downloaded. The Apache server still responds in a few milliseconds, with no real change. ab measures only the raw HTTP transfer time, and it does not run JavaScript, so it cannot "see" this delay.

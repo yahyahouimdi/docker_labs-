@@ -1,0 +1,5 @@
+After setting up load balancing with NGINX, the average number of requests per second and the average response time stayed almost the same as with a single instance. This is because the tested page was very small, and one Apache instance was already enough to handle the load.
+
+The real improvement was in latency stability. With one instance, some requests took up to 47 ms (99th percentile: 36 ms). With NGINX distributing traffic between two instances, the maximum response time dropped to 3 ms, and all percentiles stayed close to the median.
+
+Load balancing mainly improves the consistency and predictability of response times by removing the latency spikes caused by overloading a single server.

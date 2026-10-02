@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  instance1:
+    build: ../Q1
+    networks: [labnet]
+
+  instance2:
+    build: ../Q1
+    networks: [labnet]
+  
+  dateservice:
+    build: ../Q5
+    ports:
+      - "5000:5000"
+    networks: [labnet]
+
+  lb:
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8080:80"
+    depends_on: [instance1, instance2]
+    networks: [labnet]
+
+  benchmarker:
+    build: ../Q2
+    depends_on: [lb]
+    networks: [labnet]
+    entrypoint: ["ab", "-n", "1000", "-c", "50", "http://lb/"]
+
+networks:
+  labnet:
