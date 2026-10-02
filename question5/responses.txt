@@ -1,3 +1,5 @@
+Example results from one local run; throughput and latency vary with the host machine and Docker workload.
+
 The performance stayed almost the same as in test 4.2, at about 26,000 to 29,000 requests per second, with a maximum latency of 3 ms. The small decrease was likely due to measurement noise and the extra workload from the active containers on the machine, not because of a real slowdown.
 
 This confirms that ab only tests http://lb/, which serves the static index.html page. The fetch() call to dateservice is JavaScript that runs on the client side in a browser, so it is never triggered by ab and therefore has no impact on this benchmark.
