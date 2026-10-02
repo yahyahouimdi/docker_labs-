@@ -1,0 +1,11 @@
+1. Is a container the same as a virtual machine?
+ No. A VM has its own operating system, but a container shares the host OS. Containers are faster and lighter.
+
+2. A container is an abstraction of hardware or application?
+ b) Application. A container runs an application and its dependencies.
+
+3. Can you use VMs and containers together?
+ Yes. We can install Docker inside a VM and run containers in it.
+
+4. What does docker container ls -a show?
+ It shows all containers, including stopped ones. docker container ls shows only running containers.

@@ -1,0 +1,5 @@
+Visit the hands-on lab reo https://github.com/MoezBHH/docker-labs/tree/main
+Read the documentation, then go to lab : 
+Run the commands and respond to questions.
+
+Once done, submit a file name "INFO1_FamilyName_FirstName.txt" containing your responses.
