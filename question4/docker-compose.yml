@@ -1,15 +1,15 @@
 version: "3.8"
 services:
   instance1:
-    build: ../Q1
+    build: ../question1
     networks: [labnet]
 
   instance2:
-    build: ../Q1
+    build: ../question1
     networks: [labnet]
   
   dateservice:
-    build: ../Q5
+    build: ../question5
     ports:
       - "5000:5000"
     networks: [labnet]
