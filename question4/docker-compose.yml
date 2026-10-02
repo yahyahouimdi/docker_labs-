@@ -24,7 +24,7 @@ services:
     networks: [labnet]
 
   benchmarker:
-    build: ../Q2
+    build: ../benchmark
     depends_on: [lb]
     networks: [labnet]
     entrypoint: ["ab", "-n", "1000", "-c", "50", "http://lb/"]
